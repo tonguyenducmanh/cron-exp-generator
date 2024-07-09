@@ -42,13 +42,13 @@ namespace CronTest
         [TestMethod]
         public void TestBuilderFromDateToDate_BuildSuccess()
         {
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = new DateTime(2024, 02, 01);
             CronExpressionModel cronExp = new CronExpressionBuilder()
                                             .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
+            Assert.IsTrue(cronExpression == "* * * 2-1 1-2 * 2024");
         }
 
         /// <summary>
@@ -57,14 +57,14 @@ namespace CronTest
         [TestMethod]
         public void TestBuilderFromDateToDateFrequently_BuildSuccess()
         {
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = new DateTime(2024, 02, 01);
             CronExpressionModel cronExp = new CronExpressionBuilder()
                                             .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
-                                            .SetWeekly()
+                                            .SetWeekly(4)
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
+            Assert.IsTrue(cronExpression == "* * * 2-1 1-2 4 2024");
         }
 
         /// <summary>
@@ -73,14 +73,14 @@ namespace CronTest
         [TestMethod]
         public void TestBuilderMonthly_BuildSuccess()
         {
-            DateTime currentTime = DateTime.Now;
+            DateTime currentTime = new DateTime(2024, 02, 01);
             CronExpressionModel cronExp = new CronExpressionBuilder()
                                             .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
                                             .SetMonthly(30)
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
+            Assert.IsTrue(cronExpression == "* * * 30|L 1-2 * 2024");
         }
     }
 }
