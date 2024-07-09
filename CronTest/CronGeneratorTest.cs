@@ -1,4 +1,5 @@
 ﻿using CronGeneratorCore;
+using CronGeneratorCore.Enum;
 using CronGeneratorCore.Model;
 using System.Collections.Generic;
 
@@ -44,6 +45,22 @@ namespace CronTest
             DateTime currentTime = DateTime.Now;
             CronExpressionModel cronExp = new CronExpressionBuilder()
                                             .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
+                                            .GetResult();
+            string cronExpression = cronExp.ToString();
+
+            Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
+        }
+
+        /// <summary>
+        /// test xem build thành công 1 biểu thức từ ngày tới ngày không
+        /// </summary>
+        [TestMethod]
+        public void TestBuilderFromDateToDateFrequently_BuildSuccess()
+        {
+            DateTime currentTime = DateTime.Now;
+            CronExpressionModel cronExp = new CronExpressionBuilder()
+                                            .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
+                                            .SetFrequently((int)EnumCronFrequently.Weekly)
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
