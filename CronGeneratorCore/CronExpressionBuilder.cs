@@ -1,4 +1,5 @@
-﻿using CronGeneratorCore.Model;
+﻿using CronGeneratorCore.Enum;
+using CronGeneratorCore.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -318,6 +319,27 @@ namespace CronGeneratorCore
         public CronExpressionBuilder SetWeekly()
         {
             _cronExp.BuildDayOfWeek(_allValue);
+            return this;
+        }
+
+        /// <summary>
+        /// cấu hình tần suất chạy
+        /// </summary>
+        /// <param name="frequently"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder SetFrequently(int frequently) 
+        {
+            switch (frequently)
+            {
+                case (int)EnumCronFrequently.Daily:
+                    return SetDaily();
+                case (int)EnumCronFrequently.Weekly:
+                    return SetWeekly();
+                case (int)EnumCronFrequently.Monthly:
+                    return SetMonthly();
+                case (int)EnumCronFrequently.Yearly:
+                    return SetYearly();
+            }
             return this;
         }
 
