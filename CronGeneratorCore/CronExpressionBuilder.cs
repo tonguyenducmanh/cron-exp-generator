@@ -26,6 +26,16 @@ namespace CronGeneratorCore
         private const string _endOfMonthValue = "L";
 
         /// <summary>
+        /// ngày bắt đầu
+        /// </summary>
+        private DateTime? _startTime;
+
+        /// <summary>
+        /// ngày kết thúc
+        /// </summary>
+        private DateTime? _endTime;
+
+        /// <summary>
         /// build khoảng (range)
         /// </summary>
         /// <param name="from"></param>
@@ -298,6 +308,7 @@ namespace CronGeneratorCore
 
         /// <summary>
         /// cấu hình biểu thức chạy hàng tháng
+        /// thì mỗi tháng sẽ chạy job vào ngày của fromdate, nếu không có ngày của fromdate thì mặc định lấy ngày cuối cùng của tháng ở tháng đó
         /// </summary>
         /// <returns></returns>
         public CronExpressionBuilder SetMonthly()
@@ -307,42 +318,26 @@ namespace CronGeneratorCore
         }
 
         /// <summary>
-        /// cấu hình biểu thức chạy hàng năm
-        /// </summary>
-        /// <returns></returns>
-        public CronExpressionBuilder SetYearly()
-        {
-            _cronExp.BuildYear(_allValue);
-            return this;
-        }
-
-        /// <summary>
         /// cấu hình biểu thức chạy hàng tuần
+        /// thì mỗi tuần sẽ chạy vào thứ ứng với thứ của ngày fromdate
         /// </summary>
         /// <returns></returns>
-        public CronExpressionBuilder SetWeekly()
+        public CronExpressionBuilder SetWeekly(int? dayOfTheWeek = null)
         {
-            _cronExp.BuildDayOfWeek(_allValue);
-            return this;
-        }
-
-        /// <summary>
-        /// cấu hình tần suất chạy
-        /// </summary>
-        /// <param name="frequently"></param>
-        /// <returns></returns>
-        public CronExpressionBuilder SetFrequently(int frequently) 
-        {
-            switch (frequently)
+            if (dayOfTheWeek.HasValue)
             {
-                case (int)EnumCronFrequently.Daily:
-                    return SetDaily();
-                case (int)EnumCronFrequently.Weekly:
-                    return SetWeekly();
-                case (int)EnumCronFrequently.Monthly:
-                    return SetMonthly();
-                case (int)EnumCronFrequently.Yearly:
-                    return SetYearly();
+                _cronExp.BuildDayOfWeek(dayOfTheWeek.Value.ToString());
+            }
+            else
+            {
+                if(_startTime.HasValue)
+                {
+                    _cronExp.BuildDayOfWeek(((int)(_startTime.Value.DayOfWeek)).ToString());
+                }
+                else
+                {
+                    throw new NotImplementedException($"Chưa cấu hình {nameof(_startTime)}");
+                }
             }
             return this;
         }
@@ -365,12 +360,36 @@ namespace CronGeneratorCore
         /// <returns></returns>
         public CronExpressionBuilder SetStartTimeAndEndtime(DateTime start, DateTime end)
         {
+            _startTime = start;
+            _endTime = end;
+
             BuildDayOfMonth(start.Day, end.Day);
             BuildMonth(start.Month, end.Month);
             BuildYear(start.Year, end.Year);
             return this;
         }
 
+        /// <summary>
+        /// cấu hình ngày bắt đầu
+        /// </summary>
+        /// <param name="start"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder SetStartTime(DateTime start)
+        {
+            _startTime = start;
+            return this;
+        }
+
+        /// <summary>
+        /// cấu hình ngày kết thúc
+        /// </summary>
+        /// <param name="end"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder SetEndTime(DateTime end) 
+        {
+            _endTime = end;
+            return this;
+        }
         /// <summary>
         /// lấy ra model kết quả
         /// </summary>

@@ -60,7 +60,7 @@ namespace CronTest
             DateTime currentTime = DateTime.Now;
             CronExpressionModel cronExp = new CronExpressionBuilder()
                                             .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
-                                            .SetFrequently((int)EnumCronFrequently.Weekly)
+                                            .SetWeekly()
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
