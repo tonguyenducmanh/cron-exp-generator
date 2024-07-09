@@ -120,5 +120,14 @@ namespace CronGeneratorCore.Model
         {
             _second = second;
         }
+
+        /// <summary>
+        /// build tháng
+        /// </summary>
+        /// <param name="month"></param>
+        public void BuildMonth(string month)
+        {
+            _month = month;
+        }
     }
 }

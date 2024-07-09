@@ -107,6 +107,46 @@ namespace CronGeneratorCore
         }
         
         /// <summary>
+        /// cấu hình biểu thức chạy hàng ngày
+        /// </summary>
+        /// <returns></returns>
+        public CronExpressionBuilder SetDaily()
+        {
+            _cronExp.BuildDayOfMonth(_allValue);
+            return this;
+        }
+
+        /// <summary>
+        /// cấu hình biểu thức chạy hàng tháng
+        /// </summary>
+        /// <returns></returns>
+        public CronExpressionBuilder SetMonthly()
+        {
+            _cronExp.BuildMonth(_allValue);
+            return this;    
+        }
+
+        /// <summary>
+        /// cấu hình biểu thức chạy hàng năm
+        /// </summary>
+        /// <returns></returns>
+        public CronExpressionBuilder SetYearly()
+        {
+            _cronExp.BuildYear(_allValue);
+            return this;
+        }
+
+        /// <summary>
+        /// cấu hình biểu thức chạy hàng tuần
+        /// </summary>
+        /// <returns></returns>
+        public CronExpressionBuilder SetWeekly()
+        {
+            _cronExp.BuildDayOfWeek(_allValue);
+            return this;
+        } 
+        
+        /// <summary>
         /// lấy ra model kết quả
         /// </summary>
         /// <returns></returns>
