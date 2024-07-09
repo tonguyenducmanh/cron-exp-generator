@@ -47,7 +47,7 @@ namespace CronGeneratorCore
         /// <returns></returns>
         private string BuildListvalue(List<int> listValue)
         {
-            return string.Join(",", listValue.Where(x => x > 0).ToList());
+            return string.Join(",", listValue.Where(x => x > 0).Distinct().ToList());
         }
 
         /// <summary>
