@@ -48,7 +48,7 @@ namespace CronTest
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(cronExpression == "* * * 2-1 1-2 * 2024");
+            Assert.IsTrue(cronExpression == "* * * 1-2 1-2 * 2024");
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace CronTest
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(cronExpression == "* * * 2-1 1-2 4 2024");
+            Assert.IsTrue(cronExpression == "* * * 1-2 1-2 4 2024");
         }
 
         /// <summary>

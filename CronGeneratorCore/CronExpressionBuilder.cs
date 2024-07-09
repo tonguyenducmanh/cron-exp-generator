@@ -60,7 +60,14 @@ namespace CronGeneratorCore
             {
                 return from.ToString();
             }
-            return $"{from}-{to}";
+            if(from < to)
+            {
+                return $"{to}-{from}";
+            }
+            else
+            {
+                return $"{from}-{to}";
+            }
         }
 
         /// <summary>
