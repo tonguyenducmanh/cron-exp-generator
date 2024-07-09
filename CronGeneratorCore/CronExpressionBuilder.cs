@@ -29,9 +29,9 @@ namespace CronGeneratorCore
         /// cron value dùng vào ngày cuối cùng của tháng
         /// vd các ngày 29,30,31 không phải tháng nào cũng có, 
         /// nên phải dùng kèm cú pháp này để thay thế bằng ngày cuối cùng của tháng
-        /// cú pháp build ra với ô tháng sẽ là 30|M
+        /// cú pháp build ra với ô tháng sẽ là 30|L
         /// </summary>
-        private const string _endOfMonthOptionValue = "|M";
+        private const string _endOfMonthOptionValue = "|L";
 
         /// <summary>
         /// các ngày không phải tháng nào cũng có
@@ -331,34 +331,34 @@ namespace CronGeneratorCore
                 _cronExp.BuildMonth(_allValue);
             }
 
-            int? dayInMonth;
+            int? targetDay;
             if (dayOfTheMonth.HasValue)
             {
-                dayInMonth = dayOfTheMonth.Value;
+                targetDay = dayOfTheMonth.Value;
             }
             else if (_startTime.HasValue)
                 {
-                   dayInMonth = _startTime.Value.Day;
+                   targetDay = _startTime.Value.Day;
                 }
             else
             {
                 throw new NotImplementedException($"Chưa cấu hình {nameof(_startTime)}");
             }
 
-            // nếu ngày trong tháng rơi vào các trường hợp 29,30,31 thì mới phải custom
-            // các trường hợp còn lại tháng nào cũng có
-            if(dayInMonth.HasValue)
+            if(targetDay.HasValue)
             {
-                string dayOfMonth;
-                if (_dayNotInAllMonth.Contains(dayInMonth.Value))
+                string dayOfMonthCron;
+                // nếu ngày trong tháng rơi vào các trường hợp 29,30,31 thì mới phải custom
+                // các trường hợp còn lại tháng nào cũng có
+                if (_dayNotInAllMonth.Contains(targetDay.Value))
                 {
-                    dayOfMonth = dayInMonth.Value.ToString() + _endOfMonthOptionValue;
+                    dayOfMonthCron = targetDay.Value.ToString() + _endOfMonthOptionValue;
                 }
                 else
                 {
-                    dayOfMonth = dayInMonth.Value.ToString();
+                    dayOfMonthCron = targetDay.Value.ToString();
                 }
-                _cronExp.BuildDayOfMonth(dayOfMonth);
+                _cronExp.BuildDayOfMonth(dayOfMonthCron);
             }
 
             return this;

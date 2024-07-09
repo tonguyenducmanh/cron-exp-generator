@@ -66,5 +66,21 @@ namespace CronTest
 
             Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
         }
+
+        /// <summary>
+        /// test xem build thành công 1 biểu thức từ ngày tới ngày không
+        /// </summary>
+        [TestMethod]
+        public void TestBuilderMonthly_BuildSuccess()
+        {
+            DateTime currentTime = DateTime.Now;
+            CronExpressionModel cronExp = new CronExpressionBuilder()
+                                            .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
+                                            .SetMonthly(30)
+                                            .GetResult();
+            string cronExpression = cronExp.ToString();
+
+            Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
+        }
     }
 }

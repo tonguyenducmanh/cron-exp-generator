@@ -19,8 +19,8 @@
 ---- step value: vd */10 với * là phút thì lấy các phút chia hết cho 10
 ---- end of month: vd L với day_of_month thì lấy ngày cuối cùng của tháng
 ---- => lưu ý từ này chỉ dùng cho day of month
----- end of month option : vd 30|M với day_of_month thì lấy ngày 30 của tháng, nếu tháng không có ngày 30 thì 
----- lấy ngày cuối cùng của tháng ( chữ M là tùy chỉnh riêng không theo chuẩn chung )
+---- end of month option : vd 30|L với day_of_month thì lấy ngày 30 của tháng, nếu tháng không có ngày 30 thì 
+---- lấy ngày cuối cùng của tháng ( chữ |L là tùy chỉnh riêng không theo chuẩn chung )
 ---- chỉ áp dụng cho các ngày 29,30,31 do không phải tháng nào cũng có
 ---- => lưu ý từ này chỉ dùng cho day of month
 ---- thứ tự ưu tiên ngày - năm giảm dần, các thứ tự ưu tiên giảm dần có thể bỏ
