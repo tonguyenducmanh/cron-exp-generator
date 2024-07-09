@@ -20,6 +20,11 @@ namespace CronGeneratorCore
         private const string _allValue = "*";
 
         /// <summary>
+        /// cron value chạy vào ngày cuối cùng của tháng
+        /// </summary>
+        private const string _endOfMonthValue = "L";
+
+        /// <summary>
         /// lấy ra giá trị hoặc giá trị *
         /// </summary>
         /// <param name="inputValue"></param>
@@ -144,8 +149,18 @@ namespace CronGeneratorCore
         {
             _cronExp.BuildDayOfWeek(_allValue);
             return this;
-        } 
-        
+        }
+
+        /// <summary>
+        /// cấu hình biểu thức chạy vào ngày cuối cùng của tháng
+        /// </summary>
+        /// <returns></returns>
+        public CronExpressionBuilder SetEndOfMonth() 
+        {
+            _cronExp.BuildDayOfMonth(_endOfMonthValue);
+            return this;
+        }
+
         /// <summary>
         /// lấy ra model kết quả
         /// </summary>
