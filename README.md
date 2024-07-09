@@ -22,3 +22,24 @@
 ---- thứ tự ưu tiên ngày - năm giảm dần, các thứ tự ưu tiên giảm dần có thể bỏ
 
 ```
+
+Cách sử dụng
+
+```
+CronExpressionModel cronExp = new CronExpressionBuilder()
+                                .BuildHour(1)
+                                .BuildDayOfWeek(new List<int>() { 1,2,3})
+                                .BuildDayOfMonth(1,12)
+                                .GetResult();
+string cronExpression = cronExp.ToString();
+```
+
+hoặc
+
+```
+DateTime currentTime = DateTime.Now;
+CronExpressionModel cronExp = new CronExpressionBuilder()
+                                .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
+                                .GetResult();
+string cronExpression = cronExp.ToString();
+```
