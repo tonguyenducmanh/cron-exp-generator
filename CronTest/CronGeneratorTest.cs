@@ -25,7 +25,11 @@ namespace CronTest
         [TestMethod]
         public void TestBuilder_BuildSuccess()
         {
-            CronExpressionModel cronExp = new CronExpressionBuilder().BuildHour(1).BuildDayOfWeek(new List<int>() { 1,2,3}).BuildDayOfMonth(1,12).GetResult();
+            CronExpressionModel cronExp = new CronExpressionBuilder()
+                                            .BuildHour(1)
+                                            .BuildDayOfWeek(new List<int>() { 1,2,3})
+                                            .BuildDayOfMonth(1,12)
+                                            .GetResult();
             string cronExpression = cronExp.ToString();
 
             Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
