@@ -25,23 +25,13 @@ namespace CronGeneratorCore
         private const string _endOfMonthValue = "L";
 
         /// <summary>
-        /// lấy ra giá trị hoặc giá trị *
-        /// </summary>
-        /// <param name="inputValue"></param>
-        /// <returns></returns>
-        private string GetvalueOrDefault(int? inputValue)
-        {
-            return inputValue.HasValue ? inputValue.Value.ToString() : _allValue;
-        }
-
-        /// <summary>
         /// build thứ trong tuần
         /// </summary>
         /// <param name="dayOfWeek"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildDayOfWeek(int? dayOfWeek)
+        public CronExpressionBuilder BuildDayOfWeek(int dayOfWeek)
         {
-            _cronExp.BuildDayOfWeek(GetvalueOrDefault(dayOfWeek));
+            _cronExp.BuildDayOfWeek(dayOfWeek.ToString());
             return this;
         }
 
@@ -50,9 +40,9 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="dayOfMonth"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildDayOfMonth(int? dayOfMonth)
+        public CronExpressionBuilder BuildDayOfMonth(int dayOfMonth)
         {
-            _cronExp.BuildDayOfMonth(GetvalueOrDefault(dayOfMonth));
+            _cronExp.BuildDayOfMonth(dayOfMonth.ToString());
             return this;
         }
 
@@ -61,9 +51,9 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="month"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildMonth(int? month)
+        public CronExpressionBuilder BuildMonth(int month)
         {
-            _cronExp.BuildDayOfMonth(GetvalueOrDefault(month));
+            _cronExp.BuildDayOfMonth(month.ToString());
             return this;
         }
 
@@ -72,9 +62,9 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="year"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildYear(int? year)
+        public CronExpressionBuilder BuildYear(int year)
         {
-            _cronExp.BuildYear(GetvalueOrDefault(year));
+            _cronExp.BuildYear(year.ToString());
             return this;
         }
 
@@ -83,9 +73,9 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="hour"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildHour(int? hour)
+        public CronExpressionBuilder BuildHour(int hour)
         {
-            _cronExp.BuildHour(GetvalueOrDefault(hour));
+            _cronExp.BuildHour(hour.ToString());
             return this;
         }
 
@@ -94,9 +84,9 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="minute"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildMinute(int? minute) 
+        public CronExpressionBuilder BuildMinute(int minute) 
         {
-            _cronExp.BuildMinute(GetvalueOrDefault(minute));
+            _cronExp.BuildMinute(minute.ToString());
             return this;
         }
 
@@ -105,9 +95,9 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="second"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildSecond(int? second) 
+        public CronExpressionBuilder BuildSecond(int second) 
         {
-            _cronExp.BuildSecond(GetvalueOrDefault(second));
+            _cronExp.BuildSecond(second.ToString());
             return this;
         }
         
