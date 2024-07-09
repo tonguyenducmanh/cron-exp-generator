@@ -62,11 +62,11 @@ namespace CronGeneratorCore
             }
             if(from < to)
             {
-                return $"{to}-{from}";
+                return $"{from}-{to}";
             }
             else
             {
-                return $"{from}-{to}";
+                return $"{to}-{from}";
             }
         }
 
