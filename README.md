@@ -1,5 +1,6 @@
 # project thực hiện build ra biểu thức cron expression dựa vào các tham số đầu vào cho trước
 
+```
 -- cron_expression: tuân thủ biểu thức sau:
 -- * * * * * * *
 -- | | | | | | |
@@ -19,3 +20,5 @@
 ---- end of month: vd L với day_of_month thì lấy ngày cuối cùng của tháng
 ---- => lưu ý từ này chỉ dùng cho day of month
 ---- thứ tự ưu tiên ngày - năm giảm dần, các thứ tự ưu tiên giảm dần có thể bỏ
+
+```
