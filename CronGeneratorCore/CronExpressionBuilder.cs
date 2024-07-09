@@ -27,10 +27,16 @@ namespace CronGeneratorCore
 
         /// <summary>
         /// cron value dùng vào ngày cuối cùng của tháng
-        /// chỉ được dùng vd ngày 30 của tháng 2 không tồn tại sẽ chạy vào ngày cuối cùng của tháng 2
-        /// cú pháp build ra với ô tháng sẽ là 30,M
+        /// vd các ngày 29,30,31 không phải tháng nào cũng có, 
+        /// nên phải dùng kèm cú pháp này để thay thế bằng ngày cuối cùng của tháng
+        /// cú pháp build ra với ô tháng sẽ là 30|M
         /// </summary>
-        private const string _endOfMonthOptionValue = "M";
+        private const string _endOfMonthOptionValue = "|M";
+
+        /// <summary>
+        /// các ngày không phải tháng nào cũng có
+        /// </summary>
+        private readonly int[] _dayNotInAllMonth = {29,30,31};
 
         /// <summary>
         /// ngày bắt đầu
@@ -324,24 +330,37 @@ namespace CronGeneratorCore
             {
                 _cronExp.BuildMonth(_allValue);
             }
+
+            int? dayInMonth;
             if (dayOfTheMonth.HasValue)
             {
-                string monthLyCustom = string.Join(",",new List<string>() { dayOfTheMonth.Value.ToString(), _endOfMonthOptionValue });
-                _cronExp.BuildDayOfMonth(monthLyCustom);
+                dayInMonth = dayOfTheMonth.Value;
             }
+            else if (_startTime.HasValue)
+                {
+                   dayInMonth = _startTime.Value.Day;
+                }
             else
             {
-                if (_startTime.HasValue)
-                {
-                    string monthLyCustom = string.Join(",", new List<string>() { _startTime.Value.Day.ToString(), _endOfMonthOptionValue });
+                throw new NotImplementedException($"Chưa cấu hình {nameof(_startTime)}");
+            }
 
-                    _cronExp.BuildDayOfMonth(monthLyCustom);
+            // nếu ngày trong tháng rơi vào các trường hợp 29,30,31 thì mới phải custom
+            // các trường hợp còn lại tháng nào cũng có
+            if(dayInMonth.HasValue)
+            {
+                string dayOfMonth;
+                if (_dayNotInAllMonth.Contains(dayInMonth.Value))
+                {
+                    dayOfMonth = dayInMonth.Value.ToString() + _endOfMonthOptionValue;
                 }
                 else
                 {
-                    throw new NotImplementedException($"Chưa cấu hình {nameof(_startTime)}");
+                    dayOfMonth = dayInMonth.Value.ToString();
                 }
+                _cronExp.BuildDayOfMonth(dayOfMonth);
             }
+
             return this;
         }
 
