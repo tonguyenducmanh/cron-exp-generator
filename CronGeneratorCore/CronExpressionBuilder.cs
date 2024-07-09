@@ -311,9 +311,24 @@ namespace CronGeneratorCore
         /// thì mỗi tháng sẽ chạy job vào ngày của fromdate, nếu không có ngày của fromdate thì mặc định lấy ngày cuối cùng của tháng ở tháng đó
         /// </summary>
         /// <returns></returns>
-        public CronExpressionBuilder SetMonthly()
+        public CronExpressionBuilder SetMonthly(int? dayOfTheMonth = null)
         {
             _cronExp.BuildMonth(_allValue);
+            if (dayOfTheMonth.HasValue)
+            {
+                _cronExp.BuildDayOfMonth(dayOfTheMonth.Value.ToString());
+            }
+            else
+            {
+                if (_startTime.HasValue)
+                {
+                    _cronExp.BuildDayOfMonth(((int)(_startTime.Value.DayOfWeek)).ToString());
+                }
+                else
+                {
+                    throw new NotImplementedException($"Chưa cấu hình {nameof(_startTime)}");
+                }
+            }
             return this;
         }
 
