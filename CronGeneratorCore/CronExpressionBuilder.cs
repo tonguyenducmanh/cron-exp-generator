@@ -13,7 +13,7 @@ namespace CronGeneratorCore
         /// biểu thức lưu trữ kết quả
         /// </summary>
         private CronExpressionModel _cronExp = new CronExpressionModel();
-        
+
         /// <summary>
         /// cron value nhận mọi giá tị
         /// </summary>
@@ -25,6 +25,27 @@ namespace CronGeneratorCore
         private const string _endOfMonthValue = "L";
 
         /// <summary>
+        /// build khoảng (range)
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        private string BuildRangeValue(int from, int to)
+        {
+            return $"{from}-{to}";
+        }
+
+        /// <summary>
+        /// build danh sách các giá trị thỏa mãn
+        /// </summary>s
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        private string BuildListvalue(List<int> listValue)
+        {
+            return string.Join(",", listValue.Where(x => x > 0).ToList());
+        }
+
+        /// <summary>
         /// build thứ trong tuần
         /// </summary>
         /// <param name="dayOfWeek"></param>
@@ -32,6 +53,29 @@ namespace CronGeneratorCore
         public CronExpressionBuilder BuildDayOfWeek(int dayOfWeek)
         {
             _cronExp.BuildDayOfWeek(dayOfWeek.ToString());
+            return this;
+        }
+
+        /// <summary>
+        /// build khoảng ngày trong tuần
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildDayOfWeek(int from, int to)
+        {
+            _cronExp.BuildDayOfWeek(BuildRangeValue(from, to));
+            return this;
+        }
+
+        /// <summary>
+        /// build list các ngày trong tuần
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildDayOfWeek(List<int> listValue)
+        {
+            _cronExp.BuildDayOfWeek(BuildListvalue(listValue));
             return this;
         }
 
@@ -47,6 +91,30 @@ namespace CronGeneratorCore
         }
 
         /// <summary>
+        /// build khoảng ngày trong tháng
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildDayOfMonth(int from, int to)
+        {
+            _cronExp.BuildDayOfMonth(BuildRangeValue(from, to));
+            return this;
+        }
+
+        /// <summary>
+        /// build list các ngày trong tháng
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildDayOfMonth(List<int> listValue)
+        {
+            _cronExp.BuildDayOfMonth(BuildListvalue(listValue));
+            return this;
+        }
+
+
+        /// <summary>
         /// build tháng
         /// </summary>
         /// <param name="month"></param>
@@ -56,7 +124,28 @@ namespace CronGeneratorCore
             _cronExp.BuildDayOfMonth(month.ToString());
             return this;
         }
+        /// <summary>
+        /// build khoảng tháng
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildMonth(int from, int to)
+        {
+            _cronExp.BuildMonth(BuildRangeValue(from, to));
+            return this;
+        }
 
+        /// <summary>
+        /// build list các tháng
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildMonth(List<int> listValue)
+        {
+            _cronExp.BuildMonth(BuildListvalue(listValue));
+            return this;
+        }
         /// <summary>
         /// build năm
         /// </summary>
@@ -65,6 +154,29 @@ namespace CronGeneratorCore
         public CronExpressionBuilder BuildYear(int year)
         {
             _cronExp.BuildYear(year.ToString());
+            return this;
+        }
+
+        /// <summary>
+        /// build khoảng năm
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildYear(int from, int to)
+        {
+            _cronExp.BuildYear(BuildRangeValue(from, to));
+            return this;
+        }
+
+        /// <summary>
+        /// build list các năm
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildYear(List<int> listValue)
+        {
+            _cronExp.BuildYear(BuildListvalue(listValue));
             return this;
         }
 
@@ -80,13 +192,59 @@ namespace CronGeneratorCore
         }
 
         /// <summary>
+        /// build khoảng giờ
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildHour(int from, int to)
+        {
+            _cronExp.BuildHour(BuildRangeValue(from, to));
+            return this;
+        }
+
+        /// <summary>
+        /// build list các giờ
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildHour(List<int> listValue)
+        {
+            _cronExp.BuildHour(BuildListvalue(listValue));
+            return this;
+        }
+
+        /// <summary>
         /// build phút
         /// </summary>
         /// <param name="minute"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildMinute(int minute) 
+        public CronExpressionBuilder BuildMinute(int minute)
         {
             _cronExp.BuildMinute(minute.ToString());
+            return this;
+        }
+
+        /// <summary>
+        /// build khoảng phút
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildMinute(int from, int to)
+        {
+            _cronExp.BuildMinute(BuildRangeValue(from, to));
+            return this;
+        }
+
+        /// <summary>
+        /// build list các phút
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildMinute(List<int> listValue)
+        {
+            _cronExp.BuildMinute(BuildListvalue(listValue));
             return this;
         }
 
@@ -95,12 +253,34 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="second"></param>
         /// <returns></returns>
-        public CronExpressionBuilder BuildSecond(int second) 
+        public CronExpressionBuilder BuildSecond(int second)
         {
             _cronExp.BuildSecond(second.ToString());
             return this;
         }
-        
+
+        /// <summary>
+        /// build khoảng giây
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildSecond(int from, int to)
+        {
+            _cronExp.BuildSecond(BuildRangeValue(from, to));
+            return this;
+        }
+
+        /// <summary>
+        /// build list các giây
+        /// </summary>
+        /// <param name="listValue"></param>
+        /// <returns></returns>
+        public CronExpressionBuilder BuildSecond(List<int> listValue)
+        {
+            _cronExp.BuildSecond(BuildListvalue(listValue));
+            return this;
+        }
         /// <summary>
         /// cấu hình biểu thức chạy hàng ngày
         /// </summary>
@@ -118,7 +298,7 @@ namespace CronGeneratorCore
         public CronExpressionBuilder SetMonthly()
         {
             _cronExp.BuildMonth(_allValue);
-            return this;    
+            return this;
         }
 
         /// <summary>
@@ -145,7 +325,7 @@ namespace CronGeneratorCore
         /// cấu hình biểu thức chạy vào ngày cuối cùng của tháng
         /// </summary>
         /// <returns></returns>
-        public CronExpressionBuilder SetEndOfMonth() 
+        public CronExpressionBuilder SetEndOfMonth()
         {
             _cronExp.BuildDayOfMonth(_endOfMonthValue);
             return this;
