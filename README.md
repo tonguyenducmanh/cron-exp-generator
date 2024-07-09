@@ -1,5 +1,9 @@
 # project thực hiện build ra biểu thức cron expression dựa vào các tham số đầu vào cho trước
 
+builder này chưa hoàn thiện, nếu chạy từ ngày đến ngày vd 2024-01-04 đến 2024-02-01
+
+thì sẽ build ra thành "* * * 1-4 1-2 * 2024"
+
 ```
 -- cron_expression: tuân thủ biểu thức sau:
 -- * * * * * * *
