@@ -26,6 +26,13 @@ namespace CronGeneratorCore
         private const string _endOfMonthValue = "L";
 
         /// <summary>
+        /// cron value dùng vào ngày cuối cùng của tháng
+        /// chỉ được dùng vd ngày 30 của tháng 2 không tồn tại sẽ chạy vào ngày cuối cùng của tháng 2
+        /// cú pháp build ra với ô tháng sẽ là 30,M
+        /// </summary>
+        private const string _endOfMonthOptionValue = "M";
+
+        /// <summary>
         /// ngày bắt đầu
         /// </summary>
         private DateTime? _startTime;
@@ -313,16 +320,22 @@ namespace CronGeneratorCore
         /// <returns></returns>
         public CronExpressionBuilder SetMonthly(int? dayOfTheMonth = null)
         {
-            _cronExp.BuildMonth(_allValue);
+            if (!_endTime.HasValue && !_startTime.HasValue)
+            {
+                _cronExp.BuildMonth(_allValue);
+            }
             if (dayOfTheMonth.HasValue)
             {
-                _cronExp.BuildDayOfMonth(dayOfTheMonth.Value.ToString());
+                string monthLyCustom = string.Join(",",new List<string>() { dayOfTheMonth.Value.ToString(), _endOfMonthOptionValue });
+                _cronExp.BuildDayOfMonth(monthLyCustom);
             }
             else
             {
                 if (_startTime.HasValue)
                 {
-                    _cronExp.BuildDayOfMonth(((int)(_startTime.Value.DayOfWeek)).ToString());
+                    string monthLyCustom = string.Join(",", new List<string>() { _startTime.Value.Day.ToString(), _endOfMonthOptionValue });
+
+                    _cronExp.BuildDayOfMonth(monthLyCustom);
                 }
                 else
                 {
