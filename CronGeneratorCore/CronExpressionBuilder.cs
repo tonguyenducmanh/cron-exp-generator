@@ -33,6 +33,10 @@ namespace CronGeneratorCore
         /// <returns></returns>
         private string BuildRangeValue(int from, int to)
         {
+            if(from == to)
+            {
+                return from.ToString();
+            }
             return $"{from}-{to}";
         }
 
@@ -350,6 +354,20 @@ namespace CronGeneratorCore
         public CronExpressionBuilder SetEndOfMonth()
         {
             _cronExp.BuildDayOfMonth(_endOfMonthValue);
+            return this;
+        }
+
+        /// <summary>
+        /// dựng thời điểm bắt đầu chạy, thời điểm kết thúc chạy
+        /// </summary>
+        /// <param name="start">ngày bắt đầu chạy</param>
+        /// <param name="end">ngày kết thúc chạy</param>
+        /// <returns></returns>
+        public CronExpressionBuilder SetStartTimeAndEndtime(DateTime start, DateTime end)
+        {
+            BuildDayOfMonth(start.Day, end.Day);
+            BuildMonth(start.Month, end.Month);
+            BuildYear(start.Year, end.Year);
             return this;
         }
 
