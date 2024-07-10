@@ -1,10 +1,5 @@
 ﻿using CronGeneratorCore.Enum;
 using CronGeneratorCore.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CronGeneratorCore
 {
@@ -396,6 +391,25 @@ namespace CronGeneratorCore
                 }
             }
             return this;
+        }
+
+        /// <summary>
+        /// build theo tần suất
+        /// </summary>
+        /// <param name="frequently">tần suất</param>
+        /// <seealso cref="EnumCronFrequently"/>
+        public CronExpressionBuilder SetFrequently(int frequently)
+        {
+            switch (frequently)
+            {
+                case (int)EnumCronFrequently.Daily:
+                    return SetDaily();
+                case (int)EnumCronFrequently.Weekly:
+                    return SetWeekly();
+                case (int)EnumCronFrequently.Monthly:
+                    return SetMonthly();
+            }
+            throw new NotImplementedException($"Chưa cấu hình EnumCronFrequently: {frequently}");
         }
 
         /// <summary>

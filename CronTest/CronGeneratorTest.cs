@@ -1,7 +1,6 @@
 ﻿using CronGeneratorCore;
 using CronGeneratorCore.Enum;
 using CronGeneratorCore.Model;
-using System.Collections.Generic;
 
 namespace CronTest
 {
@@ -33,7 +32,7 @@ namespace CronTest
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(!string.IsNullOrEmpty(cronExpression));
+            Assert.AreEqual(cronExpression , "* * 1 1-12 * 1,2,3 * * *");
         }
 
         /// <summary>
@@ -48,7 +47,7 @@ namespace CronTest
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(cronExpression == "* * * 1-2 1-2 * 2024");
+            Assert.AreEqual(cronExpression, "* * * * * * * 2024-01-02 2024-02-01");
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace CronTest
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(cronExpression == "* * * 1-2 1-2 4 2024");
+            Assert.AreEqual(cronExpression, "* * * * * 4 * 2024-01-02 2024-02-01");
         }
 
         /// <summary>
@@ -80,7 +79,23 @@ namespace CronTest
                                             .GetResult();
             string cronExpression = cronExp.ToString();
 
-            Assert.IsTrue(cronExpression == "* * * 30|L 1-2 * 2024");
+            Assert.AreEqual(cronExpression, "* * * 30|L * * * 2024-01-02 2024-02-01");
+        }
+
+        /// <summary>
+        /// test xem build thành công 1 biểu thức theo tần suất
+        /// </summary>
+        [TestMethod]
+        public void TestBuilderFrequently_BuildSuccess()
+        {
+            DateTime currentTime = new DateTime(2024, 02, 01);
+            CronExpressionModel cronExp = new CronExpressionBuilder()
+                                            .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
+                                            .SetFrequently((int)EnumCronFrequently.Monthly)
+                                            .GetResult();
+            string cronExpression = cronExp.ToString();
+
+            Assert.AreEqual(cronExpression, "* * * 2 * * * 2024-01-02 2024-02-01");
         }
     }
 }

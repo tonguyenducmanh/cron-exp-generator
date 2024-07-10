@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CronGeneratorCore.Model
+﻿namespace CronGeneratorCore.Model
 {
     /// <summary>
     /// Model lưu trữ các thông tin từ giây tới năm của 1 biểu thức
