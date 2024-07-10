@@ -8,16 +8,18 @@ namespace CronGeneratorCore.Model
 {
     /// <summary>
     /// Model lưu trữ các thông tin từ giây tới năm của 1 biểu thức
-    /// -- cron_expression: tuân thủ biểu thức sau:
-    /// -- * * * * * * *
-    /// -- | | | | | | |
-    /// -- | | | | | | +-- Năm (khoảng: 1900-3000)
-    /// -- | | | | | +---- Ngày trong tuần (khoảng: 1-7, 1 = Chủ nhật)
-    /// -- | | | | +------ Tháng (khoảng: 1-12)
-    /// -- | | | +-------- Ngày trong tháng (khoảng: 1-31)
-    /// -- | | +---------- Giờ (khoảng: 0-23)
-    /// -- | +------------ Phút (khoảng: 0-59)
-    /// -- +-------------- Giây (khoảng: 0-59)
+    /// -- cron_expression (entended): tuân thủ biểu thức sau:
+    /// -- * * * * * * * * *
+    /// -- | | | | | | | | |
+    /// -- | | | | | | | | +-- End time (vd 2024-09-01)
+    /// -- | | | | | | | +---- Start time (vd 2024-04-01)
+    /// -- | | | | | | +------ Year (range: 1900-3000)
+    /// -- | | | | | +-------- Day of the week (range: 1-7, 1 = Sunday)
+    /// -- | | | | +---------- Month (range: 1-12)
+    /// -- | | | +------------ Day of the month (range: 1-31)
+    /// -- | | +-------------- Hour (range: 0-23)
+    /// -- | +---------------- Minute (range: 0-59)
+    /// -- +------------------ Second (range: 0-59)
     /// </summary>
     public class CronExpressionModel
     {
@@ -57,6 +59,16 @@ namespace CronGeneratorCore.Model
         /// Năm
         /// </summary>
         private string _year { get; set; } = _allValue;
+
+        /// <summary>
+        /// Start time of job
+        /// </summary>
+        private string _startTime { get; set; } = _allValue;
+
+        /// <summary>
+        /// End time of job
+        /// </summary>
+        private string _endTime { get; set; } = _allValue;
 
         /// <summary>
         /// build ra kết quả cuối cùng
@@ -128,6 +140,24 @@ namespace CronGeneratorCore.Model
         public void BuildMonth(string month)
         {
             _month = month;
+        }
+
+        /// <summary>
+        /// build startTime
+        /// </summary>
+        /// <param name="month"></param>
+        public void BuildStartTime(string startTime)
+        {
+            _startTime = startTime;
+        }
+
+        /// <summary>
+        /// build endTime
+        /// </summary>
+        /// <param name="month"></param>
+        public void BuildEndTime(string endTime)
+        {
+            _endTime = endTime;
         }
     }
 }

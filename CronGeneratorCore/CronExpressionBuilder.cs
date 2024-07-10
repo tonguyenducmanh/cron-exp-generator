@@ -36,7 +36,12 @@ namespace CronGeneratorCore
         /// <summary>
         /// các ngày không phải tháng nào cũng có
         /// </summary>
-        private readonly int[] _dayNotInAllMonth = {29,30,31};
+        private readonly int[] _dayNotInAllMonth = { 29, 30, 31 };
+
+        /// <summary>
+        /// format postgresql datetime
+        /// </summary>
+        private const string _dateTimeFormat = "yyyy-MM-dd";
 
         /// <summary>
         /// ngày bắt đầu
@@ -56,11 +61,11 @@ namespace CronGeneratorCore
         /// <returns></returns>
         private string BuildRangeValue(int from, int to)
         {
-            if(from == to)
+            if (from == to)
             {
                 return from.ToString();
             }
-            if(from < to)
+            if (from < to)
             {
                 return $"{from}-{to}";
             }
@@ -344,15 +349,15 @@ namespace CronGeneratorCore
                 targetDay = dayOfTheMonth.Value;
             }
             else if (_startTime.HasValue)
-                {
-                   targetDay = _startTime.Value.Day;
-                }
+            {
+                targetDay = _startTime.Value.Day;
+            }
             else
             {
                 throw new NotImplementedException($"Chưa cấu hình {nameof(_startTime)}");
             }
 
-            if(targetDay.HasValue)
+            if (targetDay.HasValue)
             {
                 string dayOfMonthCron;
                 // nếu ngày trong tháng rơi vào các trường hợp 29,30,31 thì mới phải custom
@@ -384,7 +389,7 @@ namespace CronGeneratorCore
             }
             else
             {
-                if(_startTime.HasValue)
+                if (_startTime.HasValue)
                 {
                     _cronExp.BuildDayOfWeek(((int)(_startTime.Value.DayOfWeek)).ToString());
                 }
@@ -417,9 +422,8 @@ namespace CronGeneratorCore
             _startTime = start;
             _endTime = end;
 
-            BuildDayOfMonth(start.Day, end.Day);
-            BuildMonth(start.Month, end.Month);
-            BuildYear(start.Year, end.Year);
+            _cronExp.BuildStartTime(start.ToString(_dateTimeFormat));
+            _cronExp.BuildEndTime(end.ToString(_dateTimeFormat));
             return this;
         }
 
@@ -439,7 +443,7 @@ namespace CronGeneratorCore
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
-        public CronExpressionBuilder SetEndTime(DateTime end) 
+        public CronExpressionBuilder SetEndTime(DateTime end)
         {
             _endTime = end;
             return this;
