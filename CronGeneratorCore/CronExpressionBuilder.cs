@@ -338,10 +338,7 @@ namespace CronGeneratorCore
         /// <returns></returns>
         public CronExpressionBuilder SetMonthly(int? dayOfTheMonth = null)
         {
-            if (!_endTime.HasValue && !_startTime.HasValue)
-            {
-                _cronExp.BuildMonth(_allValue);
-            }
+            _cronExp.BuildMonth(_allValue);
 
             int? targetDay;
             if (dayOfTheMonth.HasValue)
