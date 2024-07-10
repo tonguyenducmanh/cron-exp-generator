@@ -432,6 +432,7 @@ namespace CronGeneratorCore
         public CronExpressionBuilder SetStartTime(DateTime start)
         {
             _startTime = start;
+            _cronExp.BuildStartTime(start.ToString(_dateTimeFormat));
             return this;
         }
 
@@ -443,6 +444,7 @@ namespace CronGeneratorCore
         public CronExpressionBuilder SetEndTime(DateTime end)
         {
             _endTime = end;
+            _cronExp.BuildEndTime(end.ToString(_dateTimeFormat));
             return this;
         }
         /// <summary>
