@@ -76,7 +76,7 @@ namespace CronGeneratorCore.Model
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{_second} {_minute} {_hour} {_dayOfTheMonth} {_month} {_dayOfTheWeek} {_year}";
+            return $"{_second} {_minute} {_hour} {_dayOfTheMonth} {_month} {_dayOfTheWeek} {_year} {_startTime} {_endTime}";
         }
 
         /// <summary>
