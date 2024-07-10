@@ -35,20 +35,12 @@
 Cách sử dụng
 
 ```
-CronExpressionModel cronExp = new CronExpressionBuilder()
-                                .BuildHour(1)
-                                .BuildDayOfWeek(new List<int>() { 1,2,3})
-                                .BuildDayOfMonth(1,12)
-                                .GetResult();
-string cronExpression = cronExp.ToString();
-```
-
-hoặc
-
-```
-DateTime currentTime = DateTime.Now;
+DateTime currentTime = new DateTime(2024, 02, 01);
 CronExpressionModel cronExp = new CronExpressionBuilder()
                                 .SetStartTimeAndEndtime(currentTime.AddDays(-30), currentTime)
+                                .SetFrequently((int)EnumCronFrequently.Monthly)
                                 .GetResult();
 string cronExpression = cronExp.ToString();
+
+Assert.AreEqual(cronExpression, "* * * 2 * * * 2024-01-02 2024-02-01");
 ```
