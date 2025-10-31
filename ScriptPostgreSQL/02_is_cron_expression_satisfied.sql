@@ -130,10 +130,7 @@ BEGIN
                 IF target_value = day_test THEN
                     RETURN TRUE;
                 END IF;
-                IF target_value <> day_test AND target_value = last_day_of_month THEN
-                    RETURN TRUE;
-                END IF;
-                IF target_value = last_day_of_month THEN
+                IF day_test > last_day_of_month and target_value =  last_day_of_month THEN
                     RETURN TRUE;
                 END IF;
             END;
